@@ -26,6 +26,4 @@ valico = "*"
 url = "*"
 regex = "*"
 regex_macros = "*"
-
-[dependencies.rustless]
-path = "../.."
+rustless = "*"
