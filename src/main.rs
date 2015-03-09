@@ -5,6 +5,7 @@
 
 #![plugin(deuterium_plugin)]
 #![plugin(docopt_macros)]
+#![plugin(dsl_macros)]
 
 extern crate postgres;
 #[macro_use] #[no_link] extern crate deuterium_plugin;
