@@ -1,8 +1,7 @@
-#![feature(env)]
 #![feature(plugin)]
 #![feature(core)]
-#![feature(old_io)]
-#![feature(old_path)]
+#![feature(path)]
+#![feature(net)]
 
 #![plugin(deuterium_plugin)]
 #![plugin(docopt_macros)]
@@ -22,11 +21,12 @@ extern crate valico;
 extern crate url;
 
 use std::env;
+use std::net;
+use std::path;
 use rustless::prelude::*;
 use rustless::batteries::schemes;
 use rustless::batteries::swagger;
 use valico::json_schema;
-use std::old_io::net::ip;
 
 use self::db::DatabaseExt;
 
@@ -100,7 +100,7 @@ fn main() {
         // See `iron` docs for clarification.
         let chain = iron::Chain::new(app);
 
-        let host: ip::IpAddr = args.flag_ip.parse().unwrap();
+        let host: net::IpAddr = args.flag_ip.parse().unwrap();
         let port: u16 = args.flag_port.parse().unwrap();
 
         iron::Iron::new(chain).http((host, port)).unwrap();
@@ -125,7 +125,7 @@ fn main() {
 
         let name = deuterium_orm::migration::create_migration_file(
           &args.arg_migration_name[..],
-          Path::new("src/db/migrations")
+          path::PathBuf::new("src/db/migrations")
         );
 
         println!("Migration with name {} was generated.", name);
